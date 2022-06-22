@@ -1,0 +1,56 @@
+import random
+from art import logo
+from replit import clear
+
+guess = 0
+
+def ask_guess(remain_guess):
+  if remain_guess > 0:
+    global guess
+    guess = int(input("Make a guess: "))
+  else:
+    again = input("You lose. Do you want to play again? 'yes' or 'no'")
+    if again == "yes":
+      clear()
+      game()
+    else:
+      clear()
+
+def game():
+  print(logo)
+  
+  print("Welcome to the Guessing Number Game \n I am thinking of a number between 1 and 100. \n")
+  
+  difficulty = input("Choose a difficulty. Type 'easy' or 'hard'\n")
+  
+  if difficulty == "easy":
+    remain_guess = 10
+  else:
+    remain_guess = 5
+  
+  number = random.randint(1,100)
+  
+  print(f"You have {remain_guess} attempts remaining to guess the number")
+  
+  #guess = input("Make a guess: \n")
+  ask_guess(remain_guess)
+  
+  while remain_guess > 0:
+    if guess > number:
+      remain_guess -= 1
+      print(f"Too high.\n You have {remain_guess} attempts remaining to guess. \n Guess again.")
+      ask_guess(remain_guess)
+    if guess < number:
+      remain_guess -= 1
+      print(f"Too low.\n You have {remain_guess} attempts remaining to guess. \n Guess again.")
+      ask_guess(remain_guess)
+    elif guess == number:
+      print("Congrats correct guess")
+      again = input("Do you want to play again? 'yes' or 'no'")
+      if again == "yes":
+        clear()
+        game()
+      else:
+        break
+  
+game()  
